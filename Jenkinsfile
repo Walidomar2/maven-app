@@ -4,7 +4,7 @@ pipeline{
     agent any
 
     tools{
-        maven 'maven'
+        maven 'Maven'
     }
     stages{
         stage("build jar")
@@ -21,8 +21,8 @@ pipeline{
         {
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsID: 'w-docker-cred', usernameVariable: 'USERNAME', passwordVariable:'PASS')])
                     echo 'building docker image'
+                    withCredentials([usernamePassword(credentialsId: 'w-docker-cred', usernameVariable: 'USERNAME', passwordVariable:'PASS')])
                     sh 'docker build -t walido2/demo-app:1.2 .'
                     sh 'echo $PASS | docker login -u $USERNAME --password-stdin'
                     sh 'docker push walido2/demo-app:1.2'
