@@ -1,32 +1,31 @@
 #!/usr/bin/env groovy
 
 pipeline{
-    
     agent any
-    
-    stages {
-        stage("build") {
-            steps {
-                script {
-                    echo 'Building the application...'
-                }
-            }
+
+    tools{
+        maven 'Maven'
+    }
+    stages{
+        stage("build jar")
+        {
+            echo 'building jar file with maven tool'
+            sh 'mvn package'
         }
-        
-        stage("test") {
-            steps {
-                script {
-                    echo 'Testing the application...'
-                }
-            }
+
+        stage("build docker image")
+        {
+            withCredentials([usernamePassword(credentialsID: 'w-docker-cred', usernameVariable: 'USERNAME', passwordVariable:'PASS')])
+            echo 'building docker image'
+            sh 'docker build -t walido2/demo-app:1.2 .'
+            sh 'echo $PASS | docker login -u $USERNAME --password-stdin'
+            sh 'docker push walido2/demo-app:1.2'
         }
-        
-        stage("deploy") {
-            steps {
-                script {
-                    echo 'Deploying the application...'
-                }
-            }
+
+        stage("deploy")
+        {
+            echo 'deploying the application ... '
         }
     }
+
 }
