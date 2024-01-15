@@ -22,9 +22,9 @@ pipeline{
             steps{
                 script{
                     echo 'building docker image'
-                    withCredentials([usernamePassword(credentialsId: 'w-docker-cred', usernameVariable: 'USERNAME', passwordVariable:'PASS')])
+                    withCredentials([usernamePassword(credentialsId: 'w-docker-cred', passwordVariable: 'PASS', usernameVariable: 'USERNAME')])
                     sh 'docker build -t walido2/demo-app:1.2 .'
-                    sh 'echo $PASS | docker login -u $USERNAME --password-stdin'
+                    sh "echo $PASS | docker login -u $USERNAME --password-stdin"
                     sh 'docker push walido2/demo-app:1.2'
                 }
             }
