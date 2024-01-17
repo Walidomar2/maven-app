@@ -63,11 +63,7 @@ pipeline{
             steps{
                 script{
                 withCredentials([usernamePassword(credentialsId: 'github_cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-
-                sh 'git config --global user.email "walidomar291@gmail.com"'
-                sh 'git config --global user.name "Walidomar2"'
-                    
-                sh "git remote set-url origin https://${USER}:${PASS}@github.com/Walidomar2/maven-app.git"
+                sh "git remote set-url origin https://Walidomar2:<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>@github.com/Walidomar2/maven-app.git"
                 sh 'git add .'
                 sh 'git commit -m "ci: version bump"'
                 sh 'git push origin HEAD:jenkins-job-test'
