@@ -67,7 +67,7 @@ pipeline{
                 sh 'git config --global user.email "walidomar291@gmail.com"'
                 sh 'git config --global user.name "Walidomar2"'
        
-                sh "git remote set-url origin https://${USER}:${PASS}@git@github.com:Walidomar2/maven-app.git"
+                sh "git remote set-url origin https://${USER}:${PASS}@github.com/Walidomar2/maven-app.git"
                 sh 'git add .'
                 sh 'git commit -m "ci: version bump"'
                 sh 'git push origin HEAD:jenkins-jobs-test'
