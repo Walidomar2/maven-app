@@ -62,10 +62,7 @@ pipeline{
         {
             steps{
                 script{
-                withCredentials([usernamePassword(credentialsId: 'w_git_token', passwordVariable: 'PASS', usernameVariable: 'USER')]) { 
-                sh 'git config --global user.email "walidomar291@gmail.com"'
-                sh 'git config --global user.name "Walidomar2"'
-
+                withCredentials([usernamePassword(credentialsId: 'w_github_token', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                 sh "git remote set-url origin https://${USER}:${PASS}@github.com/Walidomar2/maven-app.git"
                 sh 'git add .'
                 sh 'git commit -m "ci: version bump"'
